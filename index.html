@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        padding: 0px 10%;
+        --maincolor: #2196F3;
+    }
+
+    #mydiv {
+  position: absolute;
+  z-index: 9;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#text {
+    word-break: break-all;
+    white-space: pre-line;
+}
+
+#mydivheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: var(--maincolor);
+  color: #fff;
+  position: sticky;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: var(--maincolor);
+  color: white;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid var(--maincolor);
+}
+</style>
+<body>
+    <div id="mydiv">
+        <div id="mydivheader">
+            Editor Window
+        </div>
+
+        <div class="tab">
+          <button class="tablinks" onclick="openCity(event, 'TextTab')" id="defaultOpen">Text</button>
+          <button class="tablinks" onclick="openCity(event, 'Options')">Options</button>
+        </div>
+
+        <div id="TextTab" class="tabcontent">
+          <textarea id="textarea" rows="20" cols="50">dsdfg</textarea>
+        </div>
+        
+        <div id="Options" class="tabcontent">
+          <input type="text" id="titleinput" placeholder="Title">
+        </div>
+      </div>
+    <h1 id="title">Document</h1>
+    <p id="text">a normal text</p>
+</body>
+<script>
+var editorwindow = document.getElementById("mydiv");
+var text = document.getElementById("text");
+var textarea = document.getElementById("textarea");
+var titleinput = document.getElementById("titleinput");
+var title = document.getElementById("title");
+
+if (window.location.protocol == "file:") {
+    editorwindow.style.display = "none"
+}
+
+textarea.onchange = function() {
+    text.innerHTML = textarea.value;
+}
+
+titleinput.onchange = function() {
+    title.innerHTML = titleinput.value;
+}
+
+dragElement(editorwindow);
+
+function dragElement(elmnt) {
+var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+if (document.getElementById(elmnt.id + "header")) {
+/* if present, the header is where you move the DIV from:*/
+document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+} else {
+/* otherwise, move the DIV from anywhere inside the DIV:*/
+elmnt.onmousedown = dragMouseDown;
+}
+
+function dragMouseDown(e) {
+e = e || window.event;
+e.preventDefault();
+// get the mouse cursor position at startup:
+pos3 = e.clientX;
+pos4 = e.clientY;
+document.onmouseup = closeDragElement;
+// call a function whenever the cursor moves:
+document.onmousemove = elementDrag;
+}
+
+function elementDrag(e) {
+e = e || window.event;
+e.preventDefault();
+// calculate the new cursor position:
+pos1 = pos3 - e.clientX;
+pos2 = pos4 - e.clientY;
+pos3 = e.clientX;
+pos4 = e.clientY;
+// set the element's new position:
+elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+}
+
+function closeDragElement() {
+/* stop moving when mouse button is released:*/
+document.onmouseup = null;
+document.onmousemove = null;
+}
+}
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen").click();
+textarea.value = text.innerHTML;
+titleinput.value = title.innerText;
+</script>
+</html>
