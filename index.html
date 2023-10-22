@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Document - RashidNotes</title>
 </head>
 <style>
     body {
@@ -89,6 +89,7 @@ input[type=text] {
         </div>
       </div>
     <h1 id="title">Document</h1>
+    <div id="watermark"></div>
     <p id="text">a normal text</p>
 </body>
 <script>
@@ -97,6 +98,7 @@ var text = document.getElementById("text");
 var textarea = document.getElementById("textarea");
 var titleinput = document.getElementById("titleinput");
 var title = document.getElementById("title");
+var watermark = document.getElementById("watermark");
 
 if (window.location.protocol == "file:") {
     editorwindow.style.display = "none"
@@ -108,6 +110,7 @@ textarea.onchange = function() {
 
 titleinput.onchange = function() {
     title.innerHTML = titleinput.value;
+    document.title  = titleinput.value + " - RashidNotes";
 }
 
 dragElement(editorwindow);
@@ -170,5 +173,6 @@ function openCity(evt, cityName) {
 document.getElementById("defaultOpen").click();
 textarea.value = text.innerHTML;
 titleinput.value = title.innerText;
+watermark.innerHTML = '<a href="https://rashidnotes.netlify.app/" target="_blank">created in rashidnotes</a>';
 </script>
 </html>
