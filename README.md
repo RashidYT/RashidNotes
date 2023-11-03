@@ -1,4 +1,6 @@
 # RashidNotes
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e6faaac4-af82-4bee-aed2-4f75b93945d1/deploy-status)](https://app.netlify.com/sites/cnrashid/deploys)
+
 This Website allows you to type something and save it on your computer locally.
 
 # How to save a Note.
